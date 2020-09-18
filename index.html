@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Bradley Eltringham 1604611 and Ariella Klitzner 1374057" />
+
+
+<title>Empirical Analysis</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="standard.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Brad and Ariella</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="#introduction">Introduction</a>
+</li>
+<li>
+  <a href="#packages">Packages</a>
+</li>
+<li>
+  <a href="#importing-data">Data Import</a>
+</li>
+<li>
+  <a href="#data-transformations">Data Transformations</a>
+</li>
+<li>
+  <a href="#portfolio-results">Portfolio Results</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Empirical Analysis</h1>
+<h4 class="author">Bradley Eltringham 1604611 and Ariella Klitzner 1374057</h4>
+<h4 class="date">8/24/2020</h4>
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<p><link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'></p>
+<script type="text/javascript">
+/* this code selects the navbar item as user scrolls down page*/
+
+/* code from stackoverflow answer here: https://stackoverflow.com/questions/9979827/change-active-menu-item-on-page-scroll */
+
+// Cache selectors
+$(document).ready(function(){
+var topMenu = $("#navbar"),
+    topMenuHeight = topMenu.outerHeight()+15,
+    // All list items
+    menuItems = topMenu.find('a[href^="#"]'),
+    // Anchors corresponding to menu items
+    scrollItems = menuItems.map(function(){
+      var item = $($(this).attr("href"));
+      if (item.length) { return item; }
+    });
+
+// Bind to scroll
+$(window).scroll(function(){
+   // Get container scroll position
+   var fromTop = $(this).scrollTop()+topMenuHeight;
+
+   // Get id of current scroll item
+   var cur = scrollItems.map(function(){
+     if ($(this).offset().top < fromTop)
+       return this;
+   });
+   // Get the id of the current element
+   cur = cur[cur.length-1];
+   var id = cur && cur.length ? cur[0].id : "";
+   // Set/remove active class
+   menuItems
+     .parent().removeClass("active")
+     .end().filter("[href='#"+id+"']").parent().addClass("active");
+});
+})
+</script>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Here we are going to cover the basics using R to perform statistical analysis for a research paper. The code reported here is what we used to obtain the results in our final research report.</p>
+<p>Our research is focused on testing carry on commodity futures contracts. Carry is mostly associated with currency carry trades, where one borrows in the low interest rate currency to lend in the high interest currency. However, despite this association, carry trades can be done with any asset. Carry is defined simply as the return to holding any asset.</p>
+<p>Commodities typically have high negative carries due to high storage costs and opportunity costs. Our research deals with commodity carry trades, focusing only on energy futures contracts. TO understand this concept, one needs to understand the commodities market. Commodities are mostly traded through futures, hence the spot market is largely illiquid. However, futures prices are not spot prices today, they are spot price on maturity. Conversely, the actual spot price on maturity may differ from the futures price. Therefore, in commodities market, carry is the difference between the actual spot price and the futures price. Since futures contracts have agreed prices for the commodity, the carry is known <em>only</em> if the spot price on maturity is equal to the contract price. Otherwise, supply and demand changes the spot price, which makes the carry uncertain. Hence, a commodity carry trade is <em>not</em> an arbitrage trade.</p>
+<p>This webpage will introduce you, the reader, to the code required to create a commodities carry trade portfolio. The code here follows the methodology described in our attached Research Overview (RO). This webpage is organised into 4 main sections namely; Packages, Data Import, Data Transformations, and Portfolio Results.</p>
+</div>
+<div id="packages" class="section level1">
+<h1>Packages</h1>
+<p>The code chunk below shows the list of packages that we used in our code. The packages contain pre-written code that stream lines data analysis and visualisation for us.</p>
+<p>We have organised this code to install packages that is not on the users system. This makes our work more reproducible.</p>
+<pre class="r watch-out"><code>pkgs &lt;- c(&quot;tseries&quot;, &quot;rmarkdown&quot;, &quot;tidyverse&quot;, &quot;ggthemes&quot;, &quot;dplyr&quot;, &quot;lubridate&quot;, &quot;fBasics&quot;, &quot;rio&quot;)
+sapply(pkgs, function(x) if (!require(x, character.only =
+                                      TRUE)) {
+    install.packages(x, repos = &quot;https://cran.mirror.ac.za/&quot;)
+    require(x, character.only = TRUE)
+})</code></pre>
+</div>
+<div id="importing-data" class="section level1">
+<h1>Importing Data</h1>
+<p>The raw data was retrieved from Bloomberg, as described in section of the attached RO. The downloaded data has file extension “.xlsx”. The “.csv” file format is preferred, so the files need to be converted to “.csv”. With 9 excel files, this process is tideous to do by hand. Fortunately, this is quite easy to do using the <a href="https://cran.r-project.org/web/packages/rio/vignettes/rio.html">rio</a> package.</p>
+<pre class="r watch-out"><code>xls &lt;- dir(pattern = &quot;xlsx&quot;) # list files
+created &lt;- mapply(convert, xls, gsub(&quot;xlsx&quot;, &quot;csv&quot;, xls)) # convert all the files
+unlink(xls) # delete xlsx files</code></pre>
+<p>The code is fairly self explanatory; list files with a “xlsx” file extension, use mapply to loop over the list of files to convert from xlsx to csv, and then delete the xlsx files. That is the code that was used to convert the files, which neatly shows that R can be used for general automation tasks and not just for statistical analysis.</p>
+<pre class="r watch-out"><code>filenames &lt;- grep(&quot;(?&lt;!index)\\.csv&quot;, list.files(&quot;data/&quot;, full.names = TRUE), perl=T, value=T)
+data_list &lt;- lapply(filenames, read.csv, stringsAsFactors=FALSE, na.strings = &quot;N/A&quot;, skip = 4)
+names(data_list) &lt;- substr(gsub( &quot; .*$&quot;, &quot;&quot;, filenames), 6, nchar(gsub( &quot; .*$&quot;, &quot;&quot;, filenames)))</code></pre>
+<p>Once we have our csv files, we can import into R. The most efficient way to import multiple csv files, is to load them into a list. To this, one first needs a list of file names. We can get a list of file names using <code>list.files()</code> and setting the pattern argument to "*.csv" to get a list of csv files in a directory.</p>
+<p>In our case, we have data for commodity contracts and data for commodity indices, which we’d rather keep separate. Therefore, we pass the list returned by <code>list.files()</code> to <code>grep()</code> to exclude files that have the string “index.csv” at the end. The argument <code>perl = TRUE</code> is necessary in order to use lookaround assertions.</p>
+<p>we then use <code>lapply</code> to loop over the file names to import them into our R session. We use the read.csv function, passing additional arguments to it. We set skip = 4 due the format of our data. Downloaded from Bloomberg, the data contains non-crucial rows in the first four observations, i.e. rows that do not relate to the observations at all and are purely descriptive.</p>
+<p>Once the list has been created, we give name each element in the list according to the file name of the original data. We only use the first word that appears before the first white space character</p>
+<pre class="r watch-out"><code>filenames &lt;-list.files(&quot;data/&quot;, pattern = &quot;index&quot;, full.names = TRUE)
+index_list &lt;- lapply(filenames, read.csv, stringsAsFactors=FALSE, na.strings = &quot;N/A&quot;, skip = 4)
+names(index_list) &lt;- c(&quot;BCOM&quot;, &quot;energy&quot;, &quot;SPX&quot;)</code></pre>
+<p>The code chunk above repeats the process for the index files.</p>
+<p>Before we proceed with data transformations, a quick glance at our data types. Thanks to the greatness of methods in object oriented programming, the <code>summary()</code> function “knows” to print a summary of the structure of a list in this context.</p>
+<pre class="r watch-out"><code>summary(data_list)</code></pre>
+<table class = 'table-extra'>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Length
+</th>
+<th style="text-align:left;">
+Class
+</th>
+<th style="text-align:left;">
+Mode
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+gasoil
+</td>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+data.frame
+</td>
+<td style="text-align:left;">
+list
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gasoline
+</td>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+data.frame
+</td>
+<td style="text-align:left;">
+list
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+heating
+</td>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+data.frame
+</td>
+<td style="text-align:left;">
+list
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ice
+</td>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+data.frame
+</td>
+<td style="text-align:left;">
+list
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+natural
+</td>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+data.frame
+</td>
+<td style="text-align:left;">
+list
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WTI
+</td>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+data.frame
+</td>
+<td style="text-align:left;">
+list
+</td>
+</tr>
+</tbody>
+</table>
+<p>As can be seen from the output above, the list contains 6 data frames, which themselves have 5 columns.</p>
+</div>
+<div id="data-transformations" class="section level1">
+<h1>Data Transformations</h1>
+<p>This is the most crucial part of any analytical work, changing data into format ready for analysis. For us, it is even more true, given that the bulk of the code is devoted to this.</p>
+<pre class="r watch-out"><code>contracts &lt;- do.call(rbind, Map(cbind, data_list, id = c(&quot;QS&quot;, &quot;XB&quot;, &quot;HO&quot;, &quot;CO&quot;, &quot;NG&quot;, &quot;CL&quot;)))
+
+indices &lt;- do.call(rbind, Map(cbind, index_list, id = names(index_list)))</code></pre>
+<p>Since the goal is to eventually combine the dataframes in the lists into a contracts dataframe and indices dataframe respectively, it is important to have an id column that will identify what contract or index the observations correspond to.</p>
+<p>With each data frame given an id column, we can now combine the dataframes in the lists into a one dataframe for each list. This is done using <code>do.call(rbind, list)</code>, although instead of passing the list, we use <code>Map</code> to add an id column to each data frame in the list. The Map function returns a list, which we use to perform the rbind. The rbind simply combines the data frames by row, which only works if the data frames have the same number of columns, which is one reason we have separate lists.</p>
+<pre class="r watch-out"><code>head(contracts)</code></pre>
+<p></br></p>
+<pre class="r watch-out"><code>conTable &lt;- knitr::kable(contracts[1:5,], format = &quot;html&quot;)
+conTable &lt;- sub(&quot;&lt;table&gt;&quot;, &quot;&lt;table class = &#39;table-extra&#39;&gt;&quot;, conTable)
+conTable
+remove(conTable)</code></pre>
+<p>The output above shows that the date column is not formatted as dates. We can change this with <code>as.Date()</code>. Since the dates column has numeric data, we need to supply an origin. This will represent the number of days since the origin. The programming standard is “1970-01-01” or “1900-01-01”, but excel is different in this regard this function, the origin argument is required. The origin in excel is “1899-12-30”. This is because of an old bug that thought 1900 was a leap year. The reason for this difference is given <a href="https://www.joelonsoftware.com/2006/06/16/my-first-billg-review/">here</a></p>
+<pre class="r watch-out"><code>contracts &lt;- contracts %&gt;%
+  select(-contains(&quot;CONTRACT&quot;)) %&gt;%
+  mutate(Dates = as.Date(Dates, origin = &quot;1899-12-30&quot;))
+
+head(contracts, 4)</code></pre>
+<p></br></p>
+<table class = 'table-extra'>
+<thead>
+<tr>
+<th style="text-align:left;">
+Dates
+</th>
+<th style="text-align:right;">
+Last.Price
+</th>
+<th style="text-align:right;">
+Last.Price.1
+</th>
+<th style="text-align:left;">
+id
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+94.50
+</td>
+<td style="text-align:right;">
+98.50
+</td>
+<td style="text-align:left;">
+QS
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-12-31
+</td>
+<td style="text-align:right;">
+95.50
+</td>
+<td style="text-align:right;">
+98.00
+</td>
+<td style="text-align:left;">
+QS
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1999-01-29
+</td>
+<td style="text-align:right;">
+100.00
+</td>
+<td style="text-align:right;">
+100.50
+</td>
+<td style="text-align:left;">
+QS
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1999-02-26
+</td>
+<td style="text-align:right;">
+100.25
+</td>
+<td style="text-align:right;">
+100.25
+</td>
+<td style="text-align:left;">
+QS
+</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<p>Now that the dates have been formatted, they must be grouped together and sorted.</p>
+<pre class="r watch-out"><code>contracts &lt;- contracts %&gt;%
+  mutate(carry = (Last.Price - Last.Price.1) / (Last.Price.1)) %&gt;%
+  arrange(Dates)
+
+head(contracts, 4)</code></pre>
+<table class = 'table-extra'>
+<thead>
+<tr>
+<th style="text-align:left;">
+Dates
+</th>
+<th style="text-align:right;">
+Last.Price
+</th>
+<th style="text-align:right;">
+Last.Price.1
+</th>
+<th style="text-align:left;">
+id
+</th>
+<th style="text-align:right;">
+carry
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+94.500
+</td>
+<td style="text-align:right;">
+98.500
+</td>
+<td style="text-align:left;">
+QS
+</td>
+<td style="text-align:right;">
+-0.0406091
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+31.320
+</td>
+<td style="text-align:right;">
+32.130
+</td>
+<td style="text-align:left;">
+HO
+</td>
+<td style="text-align:right;">
+-0.0252101
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+10.460
+</td>
+<td style="text-align:right;">
+10.700
+</td>
+<td style="text-align:left;">
+CO
+</td>
+<td style="text-align:right;">
+-0.0224299
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+1.976
+</td>
+<td style="text-align:right;">
+1.999
+</td>
+<td style="text-align:left;">
+NG
+</td>
+<td style="text-align:right;">
+-0.0115058
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+11.220
+</td>
+<td style="text-align:right;">
+11.700
+</td>
+<td style="text-align:left;">
+CL
+</td>
+<td style="text-align:right;">
+-0.0410256
+</td>
+</tr>
+</tbody>
+</table>
+<div id="portfolio-weights" class="section level2">
+<h2>Portfolio Weights</h2>
+<p>Once sorted by date, we weighted each commodity. We apply the weighting formula separately for negative and positive carry values for each month. A negative value indicates a short position while a positive value indicates a long position.</p>
+<p>So for each month, we take the carry value for commodity X and divid by the sum of the other carry values <strong>with the same sign</strong> for that month but that must be done separately for long and short positions. So if there are only 3 negative carry values for month T and 2 positive values then the weighting for each commodity that is positive will be X/Sum(X and Y).</p>
+<p>This is fairly straightforward in R. To implement this, we define a function that takes a vector of carry values. We then find the index positions with negative values. The original vector is assigned to a vector called w, which will contain the weights for each commodity in the portfolio. Using an index means that the weights will be correctly matched to the commodities. The sum it itself is calculated by extracting only negative values and summing them separately. The same thing is repeated for positive values. Last line explicitly returns the weights vector.</p>
+<pre class="r watch-out"><code>weight &lt;- function(vec) {
+  neg &lt;- which(vec&lt;0)
+  w &lt;- vec
+  w[neg] &lt;- vec[vec&lt;0] / sum(vec[vec&lt;0])
+  w[-neg] &lt;- vec[vec&gt;=0] / sum(vec[vec&gt;=0])
+  return(w)
+}</code></pre>
+<p>To actually calculate the weights, we simply use the weight function inside a <code>mutate()</code> call, passing the carry column to the vec argument of our custom function.</p>
+<pre class="r watch-out"><code>contracts &lt;- contracts %&gt;%
+  group_by(Dates) %&gt;%
+  mutate(weights = weight(carry))
+
+head(contracts, 10)</code></pre>
+<p></br></p>
+<table class = 'table-extra'>
+<thead>
+<tr>
+<th style="text-align:left;">
+Dates
+</th>
+<th style="text-align:right;">
+Last.Price
+</th>
+<th style="text-align:right;">
+Last.Price.1
+</th>
+<th style="text-align:left;">
+id
+</th>
+<th style="text-align:right;">
+carry
+</th>
+<th style="text-align:right;">
+weights
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+94.500
+</td>
+<td style="text-align:right;">
+98.500
+</td>
+<td style="text-align:left;">
+QS
+</td>
+<td style="text-align:right;">
+-0.0406091
+</td>
+<td style="text-align:right;">
+0.2884571
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+31.320
+</td>
+<td style="text-align:right;">
+32.130
+</td>
+<td style="text-align:left;">
+HO
+</td>
+<td style="text-align:right;">
+-0.0252101
+</td>
+<td style="text-align:right;">
+0.1790737
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+10.460
+</td>
+<td style="text-align:right;">
+10.700
+</td>
+<td style="text-align:left;">
+CO
+</td>
+<td style="text-align:right;">
+-0.0224299
+</td>
+<td style="text-align:right;">
+0.1593254
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+1.976
+</td>
+<td style="text-align:right;">
+1.999
+</td>
+<td style="text-align:left;">
+NG
+</td>
+<td style="text-align:right;">
+-0.0115058
+</td>
+<td style="text-align:right;">
+0.0817283
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+11.220
+</td>
+<td style="text-align:right;">
+11.700
+</td>
+<td style="text-align:left;">
+CL
+</td>
+<td style="text-align:right;">
+-0.0410256
+</td>
+<td style="text-align:right;">
+0.2914156
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-12-31
+</td>
+<td style="text-align:right;">
+95.500
+</td>
+<td style="text-align:right;">
+98.000
+</td>
+<td style="text-align:left;">
+QS
+</td>
+<td style="text-align:right;">
+-0.0255102
+</td>
+<td style="text-align:right;">
+0.5648467
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-12-31
+</td>
+<td style="text-align:right;">
+34.000
+</td>
+<td style="text-align:right;">
+34.280
+</td>
+<td style="text-align:left;">
+HO
+</td>
+<td style="text-align:right;">
+-0.0081680
+</td>
+<td style="text-align:right;">
+0.1808564
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-12-31
+</td>
+<td style="text-align:right;">
+10.530
+</td>
+<td style="text-align:right;">
+10.500
+</td>
+<td style="text-align:left;">
+CO
+</td>
+<td style="text-align:right;">
+0.0028571
+</td>
+<td style="text-align:right;">
+0.3806528
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-12-31
+</td>
+<td style="text-align:right;">
+1.945
+</td>
+<td style="text-align:right;">
+1.936
+</td>
+<td style="text-align:left;">
+NG
+</td>
+<td style="text-align:right;">
+0.0046488
+</td>
+<td style="text-align:right;">
+0.6193472
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-12-31
+</td>
+<td style="text-align:right;">
+12.050
+</td>
+<td style="text-align:right;">
+12.190
+</td>
+<td style="text-align:left;">
+CL
+</td>
+<td style="text-align:right;">
+-0.0114848
+</td>
+<td style="text-align:right;">
+0.2542969
+</td>
+</tr>
+</tbody>
+</table>
+<p>We now need to remove NaN from the dataframe. NaN stands for Not a Number and typically results from undefined mathematical operations, like division by zero. We can do this by checking if there are any NaN values in the data frame and replacing it with a zero. The <code>is.nan()</code> function is helpful here, sadly it does not have a method for data.frame, so we create one!</p>
+<pre class="r watch-out"><code>is.nan.data.frame &lt;- function(x) do.call(cbind, lapply(x, is.nan))
+
+contracts$weights[is.nan(contracts$weights)] &lt;- 0</code></pre>
+<p>By the magic of method dispatch, is.nan.data.frame will be called automatically.</p>
+<pre class="r watch-out"><code>contracts &lt;- contracts %&gt;%
+  group_by(Dates) %&gt;%
+  mutate(Return = weights * carry) %&gt;%
+  mutate(position = ifelse(carry &lt; 0, &quot;short&quot;, &quot;long&quot;))
+
+head(contracts)</code></pre>
+<p>In the code chunk above, we assign a short or long position to a commodity based on the sign of the carry. We also calculate the return by simply multiplying carry by the weights.</p>
+<table class = 'table-extra'>
+<thead>
+<tr>
+<th style="text-align:left;">
+Dates
+</th>
+<th style="text-align:right;">
+Last.Price
+</th>
+<th style="text-align:right;">
+Last.Price.1
+</th>
+<th style="text-align:left;">
+id
+</th>
+<th style="text-align:right;">
+carry
+</th>
+<th style="text-align:right;">
+weights
+</th>
+<th style="text-align:right;">
+Return
+</th>
+<th style="text-align:left;">
+position
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+94.500
+</td>
+<td style="text-align:right;">
+98.500
+</td>
+<td style="text-align:left;">
+QS
+</td>
+<td style="text-align:right;">
+-0.0406091
+</td>
+<td style="text-align:right;">
+0.2884571
+</td>
+<td style="text-align:right;">
+-0.0117140
+</td>
+<td style="text-align:left;">
+short
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+31.320
+</td>
+<td style="text-align:right;">
+32.130
+</td>
+<td style="text-align:left;">
+HO
+</td>
+<td style="text-align:right;">
+-0.0252101
+</td>
+<td style="text-align:right;">
+0.1790737
+</td>
+<td style="text-align:right;">
+-0.0045145
+</td>
+<td style="text-align:left;">
+short
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+10.460
+</td>
+<td style="text-align:right;">
+10.700
+</td>
+<td style="text-align:left;">
+CO
+</td>
+<td style="text-align:right;">
+-0.0224299
+</td>
+<td style="text-align:right;">
+0.1593254
+</td>
+<td style="text-align:right;">
+-0.0035737
+</td>
+<td style="text-align:left;">
+short
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+1.976
+</td>
+<td style="text-align:right;">
+1.999
+</td>
+<td style="text-align:left;">
+NG
+</td>
+<td style="text-align:right;">
+-0.0115058
+</td>
+<td style="text-align:right;">
+0.0817283
+</td>
+<td style="text-align:right;">
+-0.0009403
+</td>
+<td style="text-align:left;">
+short
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+11.220
+</td>
+<td style="text-align:right;">
+11.700
+</td>
+<td style="text-align:left;">
+CL
+</td>
+<td style="text-align:right;">
+-0.0410256
+</td>
+<td style="text-align:right;">
+0.2914156
+</td>
+<td style="text-align:right;">
+-0.0119555
+</td>
+<td style="text-align:left;">
+short
+</td>
+</tr>
+</tbody>
+</table>
+<p>To finally form the portfolio, we select the dates, carry, returns and position. To calculate portfolio returns, we need to subtract the short position returns from the long position. TO do this, we simply negate the returns to the short portfolio. The portfolio has been created, all that is needed is to simply sum the Return column.</p>
+<pre class="r watch-out"><code>portfolio &lt;- contracts %&gt;%
+  select(Dates, carry, Return, position) %&gt;%
+  as.data.frame() 
+
+neg &lt;- which(portfolio$carry &lt; 0)
+
+portfolio[neg, &quot;Return&quot;] &lt;- -portfolio[neg, &quot;Return&quot;]
+
+portfolio.returns &lt;- portfolio %&gt;%
+  select(Dates, Return) %&gt;%
+  group_by(Dates) %&gt;%
+  summarise(return = sum(Return))
+
+head(portfolio.returns, 10)</code></pre>
+<p></br></p>
+<table class = 'table-extra'>
+<thead>
+<tr>
+<th style="text-align:left;">
+Dates
+</th>
+<th style="text-align:right;">
+Last.Price
+</th>
+<th style="text-align:right;">
+Last.Price.1
+</th>
+<th style="text-align:left;">
+id
+</th>
+<th style="text-align:right;">
+carry
+</th>
+<th style="text-align:right;">
+weights
+</th>
+<th style="text-align:right;">
+Return
+</th>
+<th style="text-align:left;">
+position
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+94.500
+</td>
+<td style="text-align:right;">
+98.500
+</td>
+<td style="text-align:left;">
+QS
+</td>
+<td style="text-align:right;">
+-0.0406091
+</td>
+<td style="text-align:right;">
+0.2884571
+</td>
+<td style="text-align:right;">
+-0.0117140
+</td>
+<td style="text-align:left;">
+short
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+31.320
+</td>
+<td style="text-align:right;">
+32.130
+</td>
+<td style="text-align:left;">
+HO
+</td>
+<td style="text-align:right;">
+-0.0252101
+</td>
+<td style="text-align:right;">
+0.1790737
+</td>
+<td style="text-align:right;">
+-0.0045145
+</td>
+<td style="text-align:left;">
+short
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+10.460
+</td>
+<td style="text-align:right;">
+10.700
+</td>
+<td style="text-align:left;">
+CO
+</td>
+<td style="text-align:right;">
+-0.0224299
+</td>
+<td style="text-align:right;">
+0.1593254
+</td>
+<td style="text-align:right;">
+-0.0035737
+</td>
+<td style="text-align:left;">
+short
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+1.976
+</td>
+<td style="text-align:right;">
+1.999
+</td>
+<td style="text-align:left;">
+NG
+</td>
+<td style="text-align:right;">
+-0.0115058
+</td>
+<td style="text-align:right;">
+0.0817283
+</td>
+<td style="text-align:right;">
+-0.0009403
+</td>
+<td style="text-align:left;">
+short
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+11.220
+</td>
+<td style="text-align:right;">
+11.700
+</td>
+<td style="text-align:left;">
+CL
+</td>
+<td style="text-align:right;">
+-0.0410256
+</td>
+<td style="text-align:right;">
+0.2914156
+</td>
+<td style="text-align:right;">
+-0.0119555
+</td>
+<td style="text-align:left;">
+short
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-12-31
+</td>
+<td style="text-align:right;">
+95.500
+</td>
+<td style="text-align:right;">
+98.000
+</td>
+<td style="text-align:left;">
+QS
+</td>
+<td style="text-align:right;">
+-0.0255102
+</td>
+<td style="text-align:right;">
+0.5648467
+</td>
+<td style="text-align:right;">
+-0.0144094
+</td>
+<td style="text-align:left;">
+short
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-12-31
+</td>
+<td style="text-align:right;">
+34.000
+</td>
+<td style="text-align:right;">
+34.280
+</td>
+<td style="text-align:left;">
+HO
+</td>
+<td style="text-align:right;">
+-0.0081680
+</td>
+<td style="text-align:right;">
+0.1808564
+</td>
+<td style="text-align:right;">
+-0.0014772
+</td>
+<td style="text-align:left;">
+short
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-12-31
+</td>
+<td style="text-align:right;">
+10.530
+</td>
+<td style="text-align:right;">
+10.500
+</td>
+<td style="text-align:left;">
+CO
+</td>
+<td style="text-align:right;">
+0.0028571
+</td>
+<td style="text-align:right;">
+0.3806528
+</td>
+<td style="text-align:right;">
+0.0010876
+</td>
+<td style="text-align:left;">
+long
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-12-31
+</td>
+<td style="text-align:right;">
+1.945
+</td>
+<td style="text-align:right;">
+1.936
+</td>
+<td style="text-align:left;">
+NG
+</td>
+<td style="text-align:right;">
+0.0046488
+</td>
+<td style="text-align:right;">
+0.6193472
+</td>
+<td style="text-align:right;">
+0.0028792
+</td>
+<td style="text-align:left;">
+long
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-12-31
+</td>
+<td style="text-align:right;">
+12.050
+</td>
+<td style="text-align:right;">
+12.190
+</td>
+<td style="text-align:left;">
+CL
+</td>
+<td style="text-align:right;">
+-0.0114848
+</td>
+<td style="text-align:right;">
+0.2542969
+</td>
+<td style="text-align:right;">
+-0.0029206
+</td>
+<td style="text-align:left;">
+short
+</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<p>The code below simply calculates the return of indices.</p>
+<pre class="r watch-out"><code>indices &lt;- indices %&gt;%
+  mutate(Dates = as.Date(Dates, origin = &quot;1899-12-30&quot;)) %&gt;%
+  group_by(id) %&gt;%
+  mutate(return = c(0,diff(log(Last.Price)))) %&gt;%
+  ungroup() %&gt;%
+  select(Dates, return, id)
+
+head(indices)</code></pre>
+<table class = 'table-extra'>
+<thead>
+<tr>
+<th style="text-align:left;">
+Dates
+</th>
+<th style="text-align:right;">
+return
+</th>
+<th style="text-align:left;">
+id
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:left;">
+BCOM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-12-31
+</td>
+<td style="text-align:right;">
+-0.0383527
+</td>
+<td style="text-align:left;">
+BCOM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1999-01-29
+</td>
+<td style="text-align:right;">
+-0.0079205
+</td>
+<td style="text-align:left;">
+BCOM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1999-02-26
+</td>
+<td style="text-align:right;">
+-0.0389378
+</td>
+<td style="text-align:left;">
+BCOM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1999-03-31
+</td>
+<td style="text-align:right;">
+0.0874102
+</td>
+<td style="text-align:left;">
+BCOM
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="portfolio-results" class="section level1">
+<h1>Portfolio Results</h1>
+<p>In order to facilitate comparisions with the indices, we combine the portfolio.returns and indices. We use <code>cumprod</code> to calculate rolling cumulative returns. The key object of interest is show the cumlative retuns. Cumulative returns show the value of R1 invested at the start of the period.</p>
+<pre class="r watch-out"><code>portfolio.returns$id &lt;- &quot;portfolio&quot;
+comparison &lt;- rbind(portfolio.returns, indices)
+comparison &lt;- comparison %&gt;%
+  group_by(id) %&gt;%
+  mutate(cumulative = cumprod(1+return))</code></pre>
+<table class = 'table-extra'>
+<thead>
+<tr>
+<th style="text-align:left;">
+Dates
+</th>
+<th style="text-align:right;">
+return
+</th>
+<th style="text-align:left;">
+id
+</th>
+<th style="text-align:right;">
+cumulative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1998-11-30
+</td>
+<td style="text-align:right;">
+0.0326980
+</td>
+<td style="text-align:left;">
+portfolio
+</td>
+<td style="text-align:right;">
+1.032698
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998-12-31
+</td>
+<td style="text-align:right;">
+0.0227739
+</td>
+<td style="text-align:left;">
+portfolio
+</td>
+<td style="text-align:right;">
+1.056217
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1999-01-29
+</td>
+<td style="text-align:right;">
+0.0093482
+</td>
+<td style="text-align:left;">
+portfolio
+</td>
+<td style="text-align:right;">
+1.066090
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1999-02-26
+</td>
+<td style="text-align:right;">
+0.0144002
+</td>
+<td style="text-align:left;">
+portfolio
+</td>
+<td style="text-align:right;">
+1.081442
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1999-03-31
+</td>
+<td style="text-align:right;">
+0.0244335
+</td>
+<td style="text-align:left;">
+portfolio
+</td>
+<td style="text-align:right;">
+1.107866
+</td>
+</tr>
+</tbody>
+</table>
+<p>We use the <code>basicStats</code> function to compute summary statistics for the portfolio.</p>
+<pre class="r watch-out"><code>Descriptive_statistics &lt;- basicStats(portfolio.returns$return)
+print(Descriptive_statistics)</code></pre>
+<table class = 'table-stat'>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+X..portfolio.returns.return
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+nobs
+</td>
+<td style="text-align:right;">
+254.000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NAs
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Minimum
+</td>
+<td style="text-align:right;">
+0.000304
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Maximum
+</td>
+<td style="text-align:right;">
+0.314261
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<ol style="list-style-type: decimal">
+<li>Quartile
+</td>
+<td style="text-align:right;">
+0.018553
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<ol start="3" style="list-style-type: decimal">
+<li>Quartile
+</td>
+<td style="text-align:right;">
+0.057036
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mean
+</td>
+<td style="text-align:right;">
+0.043305
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Median
+</td>
+<td style="text-align:right;">
+0.030805
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sum
+</td>
+<td style="text-align:right;">
+10.999416
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SE Mean
+</td>
+<td style="text-align:right;">
+0.002598
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LCL Mean
+</td>
+<td style="text-align:right;">
+0.038189
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+UCL Mean
+</td>
+<td style="text-align:right;">
+0.048421
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Variance
+</td>
+<td style="text-align:right;">
+0.001714
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Stdev
+</td>
+<td style="text-align:right;">
+0.041404
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Skewness
+</td>
+<td style="text-align:right;">
+2.811055
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kurtosis
+</td>
+<td style="text-align:right;">
+10.885176
+</td>
+</tr>
+</tbody>
+</table></li>
+</ol></li>
+</ol>
+<p>The code below creates a graph of the carry portfolio returns. We use ggplot rather than R to visualise our returns as it is virtually unmatched.</p>
+<pre class="r watch-out"><code>Carry_Portfolio_Returns &lt;-  ggplot()+
+  geom_line(data=portfolio.returns, aes(x=Dates, y=return, group=1, color = &quot;return&quot;), size = 1) +
+  geom_path()+
+  geom_point()+ 
+  labs(title = &quot;Carry Portfolio Returns(%)&quot;,
+       x = &quot;Date&quot;, y = &quot;Return(%)&quot;)+
+  scale_color_manual(values = c(&quot;return&quot;=&quot;#2ecc71&quot;))+
+  theme(
+    legend.position = &quot;none&quot;,
+    legend.background = element_rect(fill = &quot;#dbedf9&quot;),
+    plot.background = element_rect(&quot;#dbedf9&quot;),
+    panel.background = element_rect(fill = &quot;#dbedf9&quot;,
+                                    colour = &quot;#dbedf9&quot;,
+                                    size = 0.5, linetype = &quot;dashed&quot;),
+    panel.grid.major = element_line(size = 0.5, linetype = &#39;dashed&#39;,
+                                    colour = &quot;#BDC3C7&quot;), 
+    panel.grid.minor = element_line(size = 0.25, linetype = &#39;dashed&#39;,
+                                    colour = &quot;#BDC3C7&quot;)
+  )
+
+print(Carry_Portfolio_Returns)</code></pre>
+<p><img src="index_files/figure-html/carry%20portfolio%20return%20graph-1.png" width="1344" /></p>
+<p>To show the portfolio cumulative returns, we’ve decided to rather print the maximum value of each stock in the portfolio.</p>
+<pre class="r watch-out"><code>comparison %&gt;%
+ group_by(id) %&gt;%
+  summarise(max(cumulative,na.rm = T))</code></pre>
+<table class = 'table-stat'>
+<thead>
+<tr>
+<th style="text-align:left;">
+id
+</th>
+<th style="text-align:right;">
+max(cumulative, na.rm = T)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+BCOM
+</td>
+<td style="text-align:right;">
+2.599420
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+energy
+</td>
+<td style="text-align:right;">
+5.910663
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+portfolio
+</td>
+<td style="text-align:right;">
+39406.334375
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPX
+</td>
+<td style="text-align:right;">
+2.206486
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<p>From the output above, we can see that the commodity strategy is superior the rest.</p>
+<pre class="r watch-out"><code>comp &lt;- comparison %&gt;%
+  ggplot(aes(x = return, fill = id)) +
+  geom_histogram(alpha = 0.7, binwidth = .01) +
+  facet_wrap(~id) +
+  ggtitle(&quot;Monthly Returns Since 1998&quot;)+
+  scale_fill_manual(values = c(&quot;#f1c40f&quot;, &quot;#2ecc71&quot;, &quot;#9b59b6&quot;, &quot;#e74c3c&quot;))+
+  theme_update(plot.title = element_text(hjust = 0.5))+
+  theme(
+    legend.position = &quot;none&quot;,
+    legend.background = element_rect(fill = &quot;#dbedf9&quot;),
+    plot.background = element_rect(&quot;#ffffff&quot;),
+    panel.background = element_rect(fill = &quot;#dbedf9&quot;,
+                                    colour = &quot;#dbedf9&quot;,
+                                    size = 0.5, linetype = &quot;dashed&quot;),
+    panel.grid.major = element_line(size = 0.5, linetype = &#39;dashed&#39;,
+                                    colour = &quot;#BDC3C7&quot;), 
+    panel.grid.minor = element_line(size = 0.25, linetype = &#39;dashed&#39;,
+                                    colour = &quot;#BDC3C7&quot;),
+    strip.background = element_rect(fill=&quot;#3498db&quot;)
+  )
+
+print(comp)</code></pre>
+<p><img src="index_files/figure-html/comp-1.png" width="4032" /></p>
+<p>Lastly, we use ggplot to plot the return distribution of each data frame.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

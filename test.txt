@@ -1,0 +1,335 @@
+           Dates Last.Price CURRENT_CONTRACT_MONTH_YR Last.Price.1
+gasoil.1   36129      94.50                    DEC 98        98.50
+gasoil.2   36160      95.50                    JAN 99        98.00
+gasoil.3   36189     100.00                    FEB 99       100.50
+gasoil.4   36217     100.25                    MAR 99       100.25
+gasoil.5   36250     131.50                    APR 99       130.75
+gasoil.6   36280     132.25                    MAY 99       134.25
+gasoil.7   36311     118.00                    JUN 99       121.75
+gasoil.8   36341     140.00                    JUL 99       142.50
+gasoil.9   36371     160.50                    AUG 99       162.25
+gasoil.10  36403     179.25                    SEP 99       180.00
+gasoil.11  36433     191.25                    OCT 99       192.25
+gasoil.12  36462     179.50                    NOV 99       179.75
+gasoil.13  36494     207.75                    DEC 99       203.50
+gasoil.14  36525     222.25                    JAN 00       213.25
+gasoil.15  36556     219.50                    FEB 00       215.25
+gasoil.16  36585     230.00                    MAR 00       223.00
+gasoil.17  36616     204.00                    APR 00       198.75
+gasoil.18  36644     211.50                    MAY 00       203.00
+gasoil.19  36677     228.50                    JUN 00       225.25
+gasoil.20  36707     255.75                    JUL 00       253.50
+gasoil.21  36738     239.50                    AUG 00       236.25
+gasoil.22  36769     311.50                    SEP 00       305.50
+gasoil.23  36798     287.75                    OCT 00       283.25
+gasoil.24  36830     281.25                    NOV 00       275.75
+gasoil.25  36860     304.50                    DEC 00       294.75
+gasoil.26  36889     245.00                    JAN 01       238.00
+gasoil.27  36922     213.75                    FEB 01       213.50
+gasoil.28  36950     219.50                    MAR 01       217.50
+gasoil.29  36980     212.00                    APR 01       208.25
+gasoil.30  37011     233.50                    MAY 01       231.75
+gasoil.31  37042     231.00                    JUN 01       231.00
+gasoil.32  37071     226.75                    JUL 01       227.75
+gasoil.33  37103     220.25                    AUG 01       219.50
+gasoil.34  37134     231.75                    SEP 01       232.75
+gasoil.35  37162     212.75                    OCT 01       209.00
+gasoil.36  37195     185.75                    NOV 01       183.75
+gasoil.37  37225     161.00                    DEC 01       163.75
+gasoil.38  37256     168.50                    JAN 02       169.25
+gasoil.39  37287     160.75                    FEB 02       160.75
+gasoil.40  37315     168.75                    MAR 02       171.50
+gasoil.41  37344     201.50                    APR 02       203.25
+gasoil.42  37376     209.25                    MAY 02       211.00
+gasoil.43  37407     193.50                    JUN 02       196.25
+gasoil.44  37435     206.75                    JUL 02       207.75
+gasoil.45  37468     213.50                    AUG 02       213.75
+gasoil.46  37498     232.00                    SEP 02       233.25
+gasoil.47  37529     246.50                    OCT 02       245.75
+gasoil.48  37560     221.50                    NOV 02       221.75
+gasoil.49  37589     224.50                    DEC 02       222.75
+gasoil.50  37621     253.75                    JAN 03       248.50
+gasoil.51  37652     277.50                    FEB 03       268.00
+gasoil.52  37680     321.00                    MAR 03       301.50
+gasoil.53  37711     240.00                    APR 03       229.75
+gasoil.54  37741     211.50                    MAY 03       205.50
+gasoil.55  37771     222.50                    JUN 03       221.25
+gasoil.56  37802     236.50                    JUL 03       236.00
+gasoil.57  37833     243.00                    AUG 03       243.75
+gasoil.58  37862     252.50                    SEP 03       254.50
+gasoil.59  37894     236.25                    OCT 03       236.25
+gasoil.60  37925     251.75                    NOV 03       242.50
+gasoil.61  37953     251.00                    DEC 03       249.75
+gasoil.62  37986     272.00                    JAN 04       267.75
+gasoil.63  38016     258.50                    FEB 04       254.25
+gasoil.64  38044     275.25                    MAR 04       270.00
+gasoil.65  38077     281.00                    APR 04       271.00
+gasoil.66  38107     309.00                    MAY 04       298.50
+gasoil.67  38138     314.50                    JUN 04       309.00
+gasoil.68  38168     321.75                    JUL 04       317.75
+gasoil.69  38198     370.25                    AUG 04       366.50
+gasoil.70  38230     352.50                    SEP 04       351.50
+gasoil.71  38260     446.75                    OCT 04       429.25
+gasoil.72  38289     445.75                    NOV 04       437.50
+gasoil.73  38321     431.25                    DEC 04       427.50
+gasoil.74  38352     368.00                    JAN 05       365.25
+gasoil.75  38383     397.25                    FEB 05       393.25
+gasoil.76  38411     460.50                    MAR 05       448.75
+gasoil.77  38442     514.50                    APR 05       508.75
+gasoil.78  38471     468.50                    MAY 05       470.50
+gasoil.79  38503     454.50                    JUN 05       458.75
+gasoil.80  38533     525.25                    JUL 05       529.50
+gasoil.81  38562     525.00                    AUG 05       536.00
+gasoil.82  38595     637.00                    SEP 05       637.50
+gasoil.83  38625     626.75                    OCT 05       628.50
+gasoil.84  38656     552.00                    NOV 05       558.25
+gasoil.85  38686     492.50                    DEC 05       507.75
+gasoil.86  38716     510.75                    JAN 06       518.50
+gasoil.87  38748     560.50                    FEB 06       571.25
+gasoil.88  38776     537.25                    MAR 06       540.75
+gasoil.89  38807     582.00                    APR 06       582.25
+gasoil.90  38835     627.75                    MAY 06       632.00
+gasoil.91  38868     619.25                    JUN 06       623.50
+gasoil.92  38898     643.75                    JUL 06       649.75
+gasoil.93  38929     632.25                    AUG 06       643.00
+gasoil.94  38960     634.75                    SEP 06       637.75
+gasoil.95  38989     546.25                    OCT 06       550.25
+gasoil.96  39021     516.25                    NOV 06       520.50
+gasoil.97  39051     566.75                    DEC 06       569.25
+gasoil.98  39080     516.50                    JAN 07       521.75
+gasoil.99  39113     511.75                    FEB 07       515.50
+gasoil.100 39141     538.00                    MAR 07       541.50
+gasoil.101 39171     591.75                    APR 07       593.50
+gasoil.102 39202     595.00                    MAY 07       598.00
+gasoil.103 39233     588.00                    JUN 07       591.00
+gasoil.104 39262     626.00                    JUL 07       629.75
+gasoil.105 39294     654.75                    AUG 07       657.50
+gasoil.106 39325     641.25                    SEP 07       642.00
+gasoil.107 39353     712.50                    OCT 07       711.00
+gasoil.108 39386     787.00                    NOV 07       785.75
+gasoil.109 39416     792.75                    DEC 07       787.00
+gasoil.110 39447     839.25                    JAN 08       831.25
+gasoil.111 39478     797.00                    FEB 08       787.75
+gasoil.112 39507     915.00                    MAR 08       895.50
+gasoil.113 39538     969.00                    APR 08       954.75
+gasoil.114 39568    1073.25                    MAY 08      1047.50
+gasoil.115 39598    1187.75                    JUN 08      1191.75
+gasoil.116 39629    1262.50                    JUL 08      1268.50
+gasoil.117 39660    1127.75                    AUG 08      1131.75
+gasoil.118 39689    1030.25                    SEP 08      1037.75
+gasoil.119 39721     914.50                    OCT 08       911.25
+gasoil.120 39752     636.50                    NOV 08       633.50
+gasoil.121 39780     525.50                    DEC 08       532.50
+gasoil.122 39813     418.50                    JAN 09       424.75
+gasoil.123 39843     449.50                    FEB 09       454.25
+gasoil.124 39871     386.50                    MAR 09       392.75
+gasoil.125 39903     420.00                    APR 09       427.50
+gasoil.126 39933     428.00                    MAY 09       435.00
+gasoil.127 39962     523.00                    JUN 09       534.75
+gasoil.128 39994     557.00                    JUL 09       567.75
+gasoil.129 40025     570.50                    AUG 09       577.25
+gasoil.130 40056     562.75                    SEP 09       569.25
+gasoil.131 40086     552.00                    OCT 09       559.50
+gasoil.132 40116     624.75                    NOV 09       632.25
+gasoil.133 40147     614.25                    DEC 09       625.50
+gasoil.134 40178     635.50                    JAN 10       641.50
+gasoil.135 40207     586.50                    FEB 10       593.25
+gasoil.136 40235     628.75                    MAR 10       632.25
+gasoil.137 40268     683.75                    APR 10       681.00
+gasoil.138 40298     731.75                    MAY 10       734.50
+gasoil.139 40329     637.75                    JUN 10       640.50
+gasoil.140 40359     644.75                    JUL 10       647.00
+gasoil.141 40389     648.25                    AUG 10       654.75
+gasoil.142 40421     641.25                    SEP 10       644.75
+gasoil.143 40451     706.75                    OCT 10       704.00
+gasoil.144 40480     700.75                    NOV 10       704.00
+gasoil.145 40512     729.25                    DEC 10       734.50
+gasoil.146 40543     762.50                    JAN 11       768.00
+gasoil.147 40574     835.50                    FEB 11       840.50
+gasoil.148 40602     932.25                    MAR 11       935.75
+gasoil.149 40633     993.00                    APR 11       989.25
+gasoil.150 40662    1033.50                    MAY 11      1036.25
+gasoil.151 40694     962.00                    JUN 11       964.50
+gasoil.152 40724     926.50                    JUL 11       929.50
+gasoil.153 40753     971.00                    AUG 11       972.50
+gasoil.154 40786     973.50                    SEP 11       970.00
+gasoil.155 40816     883.50                    OCT 11       879.50
+gasoil.156 40847     950.50                    NOV 11       939.25
+gasoil.157 40877     965.25                    DEC 11       956.50
+gasoil.158 40907     924.00                    JAN 12       918.00
+gasoil.159 40939     949.25                    FEB 12       949.75
+gasoil.160 40968    1002.75                    MAR 12      1003.75
+gasoil.161 40998    1014.25                    APR 12      1013.75
+gasoil.162 41029    1007.25                    MAY 12      1003.00
+gasoil.163 41060     870.75                    JUN 12       866.75
+gasoil.164 41089     848.50                    JUL 12       843.25
+gasoil.165 41121     906.25                    AUG 12       906.50
+gasoil.166 41152     995.00                    SEP 12       994.25
+           CURRENT_CONTRACT_MONTH_YR.1 id
+gasoil.1                        JAN 99 QS
+gasoil.2                        FEB 99 QS
+gasoil.3                        MAR 99 QS
+gasoil.4                        APR 99 QS
+gasoil.5                        MAY 99 QS
+gasoil.6                        JUN 99 QS
+gasoil.7                        JUL 99 QS
+gasoil.8                        AUG 99 QS
+gasoil.9                        SEP 99 QS
+gasoil.10                       OCT 99 QS
+gasoil.11                       NOV 99 QS
+gasoil.12                       DEC 99 QS
+gasoil.13                       JAN 00 QS
+gasoil.14                       FEB 00 QS
+gasoil.15                       MAR 00 QS
+gasoil.16                       APR 00 QS
+gasoil.17                       MAY 00 QS
+gasoil.18                       JUN 00 QS
+gasoil.19                       JUL 00 QS
+gasoil.20                       AUG 00 QS
+gasoil.21                       SEP 00 QS
+gasoil.22                       OCT 00 QS
+gasoil.23                       NOV 00 QS
+gasoil.24                       DEC 00 QS
+gasoil.25                       JAN 01 QS
+gasoil.26                       FEB 01 QS
+gasoil.27                       MAR 01 QS
+gasoil.28                       APR 01 QS
+gasoil.29                       MAY 01 QS
+gasoil.30                       JUN 01 QS
+gasoil.31                       JUL 01 QS
+gasoil.32                       AUG 01 QS
+gasoil.33                       SEP 01 QS
+gasoil.34                       OCT 01 QS
+gasoil.35                       NOV 01 QS
+gasoil.36                       DEC 01 QS
+gasoil.37                       JAN 02 QS
+gasoil.38                       FEB 02 QS
+gasoil.39                       MAR 02 QS
+gasoil.40                       APR 02 QS
+gasoil.41                       MAY 02 QS
+gasoil.42                       JUN 02 QS
+gasoil.43                       JUL 02 QS
+gasoil.44                       AUG 02 QS
+gasoil.45                       SEP 02 QS
+gasoil.46                       OCT 02 QS
+gasoil.47                       NOV 02 QS
+gasoil.48                       DEC 02 QS
+gasoil.49                       JAN 03 QS
+gasoil.50                       FEB 03 QS
+gasoil.51                       MAR 03 QS
+gasoil.52                       APR 03 QS
+gasoil.53                       MAY 03 QS
+gasoil.54                       JUN 03 QS
+gasoil.55                       JUL 03 QS
+gasoil.56                       AUG 03 QS
+gasoil.57                       SEP 03 QS
+gasoil.58                       OCT 03 QS
+gasoil.59                       NOV 03 QS
+gasoil.60                       DEC 03 QS
+gasoil.61                       JAN 04 QS
+gasoil.62                       FEB 04 QS
+gasoil.63                       MAR 04 QS
+gasoil.64                       APR 04 QS
+gasoil.65                       MAY 04 QS
+gasoil.66                       JUN 04 QS
+gasoil.67                       JUL 04 QS
+gasoil.68                       AUG 04 QS
+gasoil.69                       SEP 04 QS
+gasoil.70                       OCT 04 QS
+gasoil.71                       NOV 04 QS
+gasoil.72                       DEC 04 QS
+gasoil.73                       JAN 05 QS
+gasoil.74                       FEB 05 QS
+gasoil.75                       MAR 05 QS
+gasoil.76                       APR 05 QS
+gasoil.77                       MAY 05 QS
+gasoil.78                       JUN 05 QS
+gasoil.79                       JUL 05 QS
+gasoil.80                       AUG 05 QS
+gasoil.81                       SEP 05 QS
+gasoil.82                       OCT 05 QS
+gasoil.83                       NOV 05 QS
+gasoil.84                       DEC 05 QS
+gasoil.85                       JAN 06 QS
+gasoil.86                       FEB 06 QS
+gasoil.87                       MAR 06 QS
+gasoil.88                       APR 06 QS
+gasoil.89                       MAY 06 QS
+gasoil.90                       JUN 06 QS
+gasoil.91                       JUL 06 QS
+gasoil.92                       AUG 06 QS
+gasoil.93                       SEP 06 QS
+gasoil.94                       OCT 06 QS
+gasoil.95                       NOV 06 QS
+gasoil.96                       DEC 06 QS
+gasoil.97                       JAN 07 QS
+gasoil.98                       FEB 07 QS
+gasoil.99                       MAR 07 QS
+gasoil.100                      APR 07 QS
+gasoil.101                      MAY 07 QS
+gasoil.102                      JUN 07 QS
+gasoil.103                      JUL 07 QS
+gasoil.104                      AUG 07 QS
+gasoil.105                      SEP 07 QS
+gasoil.106                      OCT 07 QS
+gasoil.107                      NOV 07 QS
+gasoil.108                      DEC 07 QS
+gasoil.109                      JAN 08 QS
+gasoil.110                      FEB 08 QS
+gasoil.111                      MAR 08 QS
+gasoil.112                      APR 08 QS
+gasoil.113                      MAY 08 QS
+gasoil.114                      JUN 08 QS
+gasoil.115                      JUL 08 QS
+gasoil.116                      AUG 08 QS
+gasoil.117                      SEP 08 QS
+gasoil.118                      OCT 08 QS
+gasoil.119                      NOV 08 QS
+gasoil.120                      DEC 08 QS
+gasoil.121                      JAN 09 QS
+gasoil.122                      FEB 09 QS
+gasoil.123                      MAR 09 QS
+gasoil.124                      APR 09 QS
+gasoil.125                      MAY 09 QS
+gasoil.126                      JUN 09 QS
+gasoil.127                      JUL 09 QS
+gasoil.128                      AUG 09 QS
+gasoil.129                      SEP 09 QS
+gasoil.130                      OCT 09 QS
+gasoil.131                      NOV 09 QS
+gasoil.132                      DEC 09 QS
+gasoil.133                      JAN 10 QS
+gasoil.134                      FEB 10 QS
+gasoil.135                      MAR 10 QS
+gasoil.136                      APR 10 QS
+gasoil.137                      MAY 10 QS
+gasoil.138                      JUN 10 QS
+gasoil.139                      JUL 10 QS
+gasoil.140                      AUG 10 QS
+gasoil.141                      SEP 10 QS
+gasoil.142                      OCT 10 QS
+gasoil.143                      NOV 10 QS
+gasoil.144                      DEC 10 QS
+gasoil.145                      JAN 11 QS
+gasoil.146                      FEB 11 QS
+gasoil.147                      MAR 11 QS
+gasoil.148                      APR 11 QS
+gasoil.149                      MAY 11 QS
+gasoil.150                      JUN 11 QS
+gasoil.151                      JUL 11 QS
+gasoil.152                      AUG 11 QS
+gasoil.153                      SEP 11 QS
+gasoil.154                      OCT 11 QS
+gasoil.155                      NOV 11 QS
+gasoil.156                      DEC 11 QS
+gasoil.157                      JAN 12 QS
+gasoil.158                      FEB 12 QS
+gasoil.159                      MAR 12 QS
+gasoil.160                      APR 12 QS
+gasoil.161                      MAY 12 QS
+gasoil.162                      JUN 12 QS
+gasoil.163                      JUL 12 QS
+gasoil.164                      AUG 12 QS
+gasoil.165                      SEP 12 QS
+gasoil.166                      OCT 12 QS
+ [ reached 'max' / getOption("max.print") -- omitted 1274 rows ]

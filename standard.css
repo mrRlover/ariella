@@ -1,0 +1,112 @@
+body{
+  background-color: #e5f4fc;
+  font-family: "Montserrat"!important;
+}
+
+.container-fluid.main-container {
+    background: #fff;
+    font-family: "Montserrat"!important;
+}
+
+h1 {
+    font-family: Montserrat;
+}
+
+pre.r.watch-out {
+    background: #03131c;
+    color: #fff;
+    font-family: "Montserrat"!important;
+}
+
+.hljs-string {
+    color: rgb(23,204,89);
+}
+
+.hljs-keyword {
+    color: rgb(23,204,180);
+}
+
+.hljs-literal {
+    color: rgb(204,23,138);
+}
+
+.hljs-number {
+    color: rgb(23,48,204);
+}
+
+.table-extra {
+    width: 100%;
+}
+
+.table-extra th {
+    background-color: #072b3f;
+    color: #ffffff;
+}
+
+.table-extra tr:nth-child(even) {
+    background-color: #58b7ed;
+    color: #ffffff;
+    
+}
+
+table.table-extra th:not(:first-child) {
+    text-align: center;
+    text-align-last: center;
+}
+
+table.table-extra td:not(:first-child) {
+    text-align: center;
+    text-align-last: center;
+}
+
+.table-stat {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+}
+
+.table-stat thead tr {
+    background-color: #072b3f;
+    color: #ffffff;
+}
+
+.table-stat th,
+.table-stat td {
+    padding: 12px 15px;
+}
+
+.table-stat tbody tr {
+    border-bottom: 1px solid #dcddde;
+}
+
+.table-stat tbody tr:nth-of-type(even) {
+    background-color: #e6f4fc;
+}
+
+.table-stat tbody tr:last-of-type {
+    border-bottom: 2px solid #072b3f;
+}
+
+.table-stat tbody tr:nth-child(odd) {
+    font-weight: bold;
+    color: #58b7ed;
+}
+
+table.table-stat th:last-child {
+    text-align: right;
+    text-align-last: right;
+}
+
+table.table-stat td:last-child {
+    text-align: right;
+    text-align-last: right;
+}
+
+div#header {
+    background-color: #072b3f;
+    color: #ffffff;
+}
