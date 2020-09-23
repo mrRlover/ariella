@@ -6,6 +6,8 @@ body{
 .container-fluid.main-container {
     background: #fff;
     font-family: "Montserrat"!important;
+    text-align: justify;
+    text-align-last: left;
 }
 
 h1 {
@@ -108,4 +110,10 @@ table.table-stat td:last-child {
 div#header {
     background-color: #072b3f;
     color: #ffffff;
+}
+
+iframe {
+  border-color: none;
+  border-top: none;
+  border-left: none;
 }

@@ -288,6 +288,9 @@ $(document).ready(function () {
 <li>
   <a href="#portfolio-results">Portfolio Results</a>
 </li>
+<li>
+  <a href="#visualisations">Visualisations</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -308,6 +311,7 @@ $(document).ready(function () {
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
 <p><link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'></p>
 <script type="text/javascript">
 /* this code selects the navbar item as user scrolls down page*/
@@ -357,7 +361,7 @@ $(window).scroll(function(){
 <h1>Packages</h1>
 <p>The code chunk below shows the list of packages that we used in our code. The packages contain pre-written code that stream lines data analysis and visualisation for us.</p>
 <p>We have organised this code to install packages that is not on the users system. This makes our work more reproducible.</p>
-<pre class="r watch-out"><code>pkgs &lt;- c(&quot;tseries&quot;, &quot;rmarkdown&quot;, &quot;tidyverse&quot;, &quot;ggthemes&quot;, &quot;dplyr&quot;, &quot;lubridate&quot;, &quot;fBasics&quot;, &quot;rio&quot;)
+<pre class="r watch-out"><code>pkgs &lt;- c(&quot;tseries&quot;, &quot;rmarkdown&quot;, &quot;tidyverse&quot;, &quot;ggthemes&quot;, &quot;dplyr&quot;, &quot;data.table&quot;, &quot;lubridate&quot;, &quot;fBasics&quot;, &quot;rio&quot;, &quot;highcharter&quot;, &quot;xts&quot;, &quot;Hmisc&quot;)
 sapply(pkgs, function(x) if (!require(x, character.only =
                                       TRUE)) {
     install.packages(x, repos = &quot;https://cran.mirror.ac.za/&quot;)
@@ -1758,29 +1762,6 @@ Kurtosis
 </table></li>
 </ol></li>
 </ol>
-<p>The code below creates a graph of the carry portfolio returns. We use ggplot rather than R to visualise our returns as it is virtually unmatched.</p>
-<pre class="r watch-out"><code>Carry_Portfolio_Returns &lt;-  ggplot()+
-  geom_line(data=portfolio.returns, aes(x=Dates, y=return, group=1, color = &quot;return&quot;), size = 1) +
-  geom_path()+
-  geom_point()+ 
-  labs(title = &quot;Carry Portfolio Returns(%)&quot;,
-       x = &quot;Date&quot;, y = &quot;Return(%)&quot;)+
-  scale_color_manual(values = c(&quot;return&quot;=&quot;#2ecc71&quot;))+
-  theme(
-    legend.position = &quot;none&quot;,
-    legend.background = element_rect(fill = &quot;#dbedf9&quot;),
-    plot.background = element_rect(&quot;#dbedf9&quot;),
-    panel.background = element_rect(fill = &quot;#dbedf9&quot;,
-                                    colour = &quot;#dbedf9&quot;,
-                                    size = 0.5, linetype = &quot;dashed&quot;),
-    panel.grid.major = element_line(size = 0.5, linetype = &#39;dashed&#39;,
-                                    colour = &quot;#BDC3C7&quot;), 
-    panel.grid.minor = element_line(size = 0.25, linetype = &#39;dashed&#39;,
-                                    colour = &quot;#BDC3C7&quot;)
-  )
-
-print(Carry_Portfolio_Returns)</code></pre>
-<p><img src="index_files/figure-html/carry%20portfolio%20return%20graph-1.png" width="1344" /></p>
 <p>To show the portfolio cumulative returns, we’ve decided to rather print the maximum value of each stock in the portfolio.</p>
 <pre class="r watch-out"><code>comparison %&gt;%
  group_by(id) %&gt;%
@@ -1840,6 +1821,37 @@ NA
 </tbody>
 </table>
 <p>From the output above, we can see that the commodity strategy is superior the rest.</p>
+</div>
+<div id="visualisations" class="section level1">
+<h1>Visualisations</h1>
+<p>In this section, we will graph our results in order to get an intuitive understanding of the performance of our carry portfolio.</p>
+<p><strong>Return distributions</strong></p>
+<p>The code below creates a graph of the carry portfolio returns. We use ggplot rather than R to visualise our returns as it is virtually unmatched.</p>
+<pre class="r watch-out"><code>Carry_Portfolio_Returns &lt;-  ggplot()+
+  geom_line(data=portfolio.returns, aes(x=Dates, y=return, group=1, color = &quot;return&quot;), size = 1) +
+  geom_path()+
+  geom_point()+ 
+  labs(title = &quot;Carry Portfolio Returns(%)&quot;,
+       x = &quot;Date&quot;, y = &quot;Return(%)&quot;)+
+  scale_color_manual(values = c(&quot;return&quot;=&quot;#2ecc71&quot;))+
+  theme(
+    legend.position = &quot;none&quot;,
+    legend.background = element_rect(fill = &quot;#dbedf9&quot;),
+    plot.background = element_rect(&quot;#dbedf9&quot;),
+    panel.background = element_rect(fill = &quot;#dbedf9&quot;,
+                                    colour = &quot;#dbedf9&quot;,
+                                    size = 0.5, linetype = &quot;dashed&quot;),
+    panel.grid.major = element_line(size = 0.5, linetype = &#39;dashed&#39;,
+                                    colour = &quot;#BDC3C7&quot;), 
+    panel.grid.minor = element_line(size = 0.25, linetype = &#39;dashed&#39;,
+                                    colour = &quot;#BDC3C7&quot;)
+  )
+
+print(Carry_Portfolio_Returns)</code></pre>
+<p><img src="index_files/figure-html/carry%20portfolio%20return%20graph-1.png" width="1344" /></p>
+<p>The graph above shows the monthly returns of the carry portfolio strategy. The graph is made ggplot. The ggplot syntax follows the grammar of graphics philosophy, which plots additional layers to the aesthetics to get a plot. Every ggplot graph starts by first calling the <code>ggplot()</code> function. The aesthetics can be specified here or in a geom or both. Placing aesthetics inside <code>ggplot()</code> will pass those aesthetics to all of the geoms. Passing aesthetics to only the geoms will mean that only that geom will inherit the aesthetics, the others will not.</p>
+<p>We use <code>geom_line()</code> to get a line chart. We map dates to the x axis and the returns to the y axis. The group argument needs to be set to 1 if you have an x axis of dates. The colour argument will allow us to control the color of the return line, which we do inside <code>scale_color_manual()</code>.</p>
+<p>The theme argument allows us to improve on the appearance of the default ggplot graphics. We remove the legend, change the background colour and we change the colour as well as the type of the gridlines. We set a dashed grid line rather than a solid line.</p>
 <pre class="r watch-out"><code>comp &lt;- comparison %&gt;%
   ggplot(aes(x = return, fill = id)) +
   geom_histogram(alpha = 0.7, binwidth = .01) +
@@ -1863,7 +1875,97 @@ NA
 
 print(comp)</code></pre>
 <p><img src="index_files/figure-html/comp-1.png" width="4032" /></p>
-<p>Lastly, we use ggplot to plot the return distribution of each data frame.</p>
+<p>We create a histogram of the four return distributions. We use facet wrap to give each histogram it’s own grid, rather than overlapping. This is useful if one wants to look at each histogram separately.</p>
+<p>We can also overlap in order to directly compare distributions, which we do with the code below:</p>
+<pre class="r watch-out"><code>gghist &lt;- comparison %&gt;%
+  ggplot(aes(x = return, fill = id)) +
+  geom_histogram(alpha = 0.7, binwidth = .01) +
+  ggtitle(&quot;Monthly Returns Since 1998&quot;)+
+  scale_fill_manual(values = c(&quot;#f1c40f&quot;, &quot;#2ecc71&quot;, &quot;#9b59b6&quot;, &quot;#e74c3c&quot;))+
+  theme_update(plot.title = element_text(hjust = 0.5))+
+  theme(
+    legend.position = &quot;none&quot;,
+    legend.background = element_rect(fill = &quot;#dbedf9&quot;),
+    plot.background = element_rect(&quot;#ffffff&quot;),
+    panel.background = element_rect(fill = &quot;#dbedf9&quot;,
+                                    colour = &quot;#dbedf9&quot;,
+                                    size = 0.5, linetype = &quot;dashed&quot;),
+    panel.grid.major = element_line(size = 0.5, linetype = &#39;dashed&#39;,
+                                    colour = &quot;#BDC3C7&quot;), 
+    panel.grid.minor = element_line(size = 0.25, linetype = &#39;dashed&#39;,
+                                    colour = &quot;#BDC3C7&quot;),
+    strip.background = element_rect(fill=&quot;#3498db&quot;)
+  )
+
+print(gghist)</code></pre>
+<p><img src="index_files/figure-html/histh-1.png" width="4032" /></p>
+<p>We also use violin plots to show the distribution of the returns. These are like boxplots but they differ slightly in that they also show the kernel probability density.</p>
+<p>Violin plots can also be plotted with the median of the data and a box indicating the interquartile range, just like standard box plots. However, we have opted to plot the violin plots with the mean as a pointed circle and the standard deviation around the mean as a straight line. To do this, we have used the <code>stat_summary()</code> function (which requires the Hmisc package).</p>
+<pre class="r"><code>ggplot(comparison, aes(x=id, y=return, fill=id)) + 
+  geom_violin(trim=FALSE)+
+  stat_summary(fun.data=mean_sdl, geom=&quot;pointrange&quot;, color=&quot;red&quot;)+
+  scale_fill_manual(values=c(&quot;#999999&quot;, &quot;#E69F00&quot;, &quot;#56B4E9&quot;, &quot;#FFFFFF&quot;))+
+  labs(x = &quot;&quot;, y = &quot;Return&quot;)+
+  theme(
+    legend.position = &quot;none&quot;,
+    legend.background = element_rect(fill = &quot;#dbedf9&quot;),
+    plot.background = element_rect(fill = &quot;#dbedf9&quot;),
+    panel.background = element_rect(fill = &quot;#dbedf9&quot;,
+                                    colour = &quot;#dbedf9&quot;,
+                                    size = 0.5, linetype = &quot;dashed&quot;),
+    panel.grid.major = element_line(size = 0.5, linetype = &#39;dashed&#39;,
+                                    colour = &quot;#BDC3C7&quot;), 
+    panel.grid.minor = element_line(size = 0.25, linetype = &#39;dashed&#39;,
+                                    colour = &quot;#BDC3C7&quot;),
+    strip.background = element_rect(fill=&quot;#3498db&quot;)
+  )</code></pre>
+<p><img src="index_files/figure-html/violin_plot-1.png" width="4032" /></p>
+<p>Lastly, we use highcharts to plot the return distribution of each index and the portfolio. Highcharts is a javascript library for creating beautiful interactive charts. Highcharter is an R package that provides a wrapper around the javascript library.</p>
+<p>Prior to that, we make an xts object first. This isn’t necessary, but it is easier to chart series with xts objects in highcharter.</p>
+<pre class="r watch-out"><code>port &lt;- data.table::dcast(data.table::setDT(comparison), Dates ~ id, value.var = &quot;return&quot;)
+
+port &lt;- xts(port[,-1], order.by = ymd(port$Dates))</code></pre>
+<p>First we use <code>dcast</code> from data.table to reshape the data from long format to wide format. We use data.table here because <code>dcast</code> is simply one line to reshape the data, versus the tidyverse approach which is three or four lines. The <code>dcast</code> function is also easier to understand, use and much more intuitive.</p>
+<p>The highcharts package has been built to work with the pipe operator. This makes adding layers a more intuitive process. Without the pipes, each line would have to be saved to a list and then that list used as the first argument of the next function. That then is saved either to the same list or a new one. That would have to be repeated until one is done. The other option would be to nest the functions, which becomes unreadable after 3 or 4 functions.</p>
+<p>To begin, we start with the <code>highchart()</code> function, which is similar to the <code>ggplot()</code> function. We we set the type argument to “stock”, to let highcharts know that we are dealing with financial assets. This will make use of the Highstock library, which is used for financial time series.</p>
+<p>The <code>hc_title()</code> function adds a title to the chart. The <code>hc_add_series()</code> adds the data that needs to be plotted. This function is similar to the <code>geom_</code> functions of <code>ggplot()</code> The <code>hc_add_theme()</code> function lets you choose a theme to be applied on your chart. The highcharter function comes with loads of beautiful ready made themes, there is even a ggplot theme! We have gone for the Financial Times theme here, which seems appropriate given the setting.</p>
+<p>The navigator is a small series below the main series, displaying a view of the entire data set. It provides tools to zoom in and out on parts of the data as well as panning across the dataset. We’ve turned it off by setting enabled to FALSE. A scrollbar is not necessary here so we disable that as well.</p>
+<p>The <code>hc_exporting()</code> controls the option to export the chart. We set this to true so that we can save our graph. Saving the graph can be done by clicking on the three horizontal bars in the top right corner and then clicking the desired download option.</p>
+<p>Lastly, the <code>hc</code></p>
+<pre class="r watch-out"><code>highchart(type = &quot;stock&quot;) %&gt;%
+  hc_title(text = &quot;Monthly Log Returns&quot;) %&gt;%
+  hc_add_series(port[, 1], name = &quot;BCOM&quot;) %&gt;%
+  hc_add_series(port[, 2], name = &quot;SPX&quot;) %&gt;%
+  hc_add_series(port[, 3], name = &quot;energy&quot;) %&gt;%
+  hc_add_series(port[, 4], name = &quot;portfolio&quot;) %&gt;%
+  hc_add_theme(hc_theme_ft()) %&gt;%
+  hc_navigator(enabled = FALSE) %&gt;%
+  hc_scrollbar(enabled = FALSE) %&gt;%
+  hc_exporting(enabled = TRUE, scale = 4) %&gt;%
+  hc_legend(enabled = TRUE)</code></pre>
+<iframe src="highchart.html" width="910px" height="500px">
+</iframe>
+<p></br></p>
+<p><strong>Correlation Matrix</strong></p>
+<p>We call upon highcharts again. This time to plot the correlation matrix with a heatmap.</p>
+<p>The code below creates a heatmap. First we create a correlations matrix. We then pipe that into the <code>hchart()</code> function. This function differs from the <code>highchart()</code> function we used earlier in one important aspect. This function uses S3 generic class to plot objects. So it functions like the base R <code>plot()</code>. If you are familiar with the base R <code>plot()</code> function, it will give different types of plots depending on the type of object passed to it. In this case, a heatmap is plotted because the <code>hchart()</code> function “knows” which plot to return based on the return value of the <code>cor()</code> function. This is the beauty of object oriented programming.</p>
+<p>Strictly speaking this is known as a method of the <code>hchart()</code> function, i.e. different objects will have different plotting methods. This allows us to reduce the amount of code we write/</p>
+<pre class="r watch-out"><code>cor(port) %&gt;%
+hchart() %&gt;% 
+  hc_plotOptions(
+    series = list(
+      dataLabels = list(
+        enabled = TRUE,
+        formatter = JS(&quot;function(){
+                       return Highcharts.numberFormat(this.point.value, 2);
+                       }&quot;)
+        )
+      )
+    )</code></pre>
+<iframe src="correlations.html" width="910px" height="500px">
+</iframe>
+<p>We can see that our carry returns are almost uncorrelated with the indices.</p>
+<p>This concludes our research tests. We hope you found it informative and interesting.</p>
 </div>
 
 
