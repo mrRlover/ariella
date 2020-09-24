@@ -1,0 +1,3 @@
+Open index.Rmd; click knit to knit to html or CTRL + SHIFT + KNIT
+html output file is inside _site folder 
+The html output file is called index.html
