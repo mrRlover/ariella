@@ -361,7 +361,7 @@ $(window).scroll(function(){
 <h1>Packages</h1>
 <p>The code chunk below shows the list of packages that we used in our code. The packages contain pre-written code that stream lines data analysis and visualisation for us.</p>
 <p>We have organised this code to install packages that is not on the users system. This makes our work more reproducible.</p>
-<pre class="r watch-out"><code>pkgs &lt;- c(&quot;tseries&quot;, &quot;rmarkdown&quot;, &quot;tidyverse&quot;, &quot;ggthemes&quot;, &quot;dplyr&quot;, &quot;data.table&quot;, &quot;lubridate&quot;, &quot;fBasics&quot;, &quot;rio&quot;, &quot;highcharter&quot;, &quot;xts&quot;, &quot;Hmisc&quot;)
+<pre class="r watch-out"><code>pkgs &lt;- c(&quot;tseries&quot;, &quot;rmarkdown&quot;, &quot;tidyverse&quot;, &quot;ggthemes&quot;, &quot;dplyr&quot;, &quot;data.table&quot;, &quot;lubridate&quot;, &quot;fBasics&quot;, &quot;rio&quot;, &quot;highcharter&quot;, &quot;xts&quot;, &quot;Hmisc&quot;, &quot;broom&quot;)
 sapply(pkgs, function(x) if (!require(x, character.only =
                                       TRUE)) {
     install.packages(x, repos = &quot;https://cran.mirror.ac.za/&quot;)
@@ -1523,7 +1523,9 @@ BCOM
 comparison &lt;- rbind(portfolio.returns, indices)
 comparison &lt;- comparison %&gt;%
   group_by(id) %&gt;%
-  mutate(cumulative = cumprod(1+return))</code></pre>
+  mutate(cumulative = cumprod(1+return)) %&gt;%
+  mutate(id = gsub(&quot;energy&quot;, &quot;BCOMEN&quot;, id)) %&gt;% 
+  mutate(id = gsub(&quot;portfolio&quot;, &quot;Carry Portfolio&quot;, id))</code></pre>
 <table class = 'table-extra'>
 <thead>
 <tr>
@@ -1550,7 +1552,7 @@ cumulative
 0.0326980
 </td>
 <td style="text-align:left;">
-portfolio
+Carry Portfolio
 </td>
 <td style="text-align:right;">
 1.032698
@@ -1564,7 +1566,7 @@ portfolio
 0.0227739
 </td>
 <td style="text-align:left;">
-portfolio
+Carry Portfolio
 </td>
 <td style="text-align:right;">
 1.056217
@@ -1578,7 +1580,7 @@ portfolio
 0.0093482
 </td>
 <td style="text-align:left;">
-portfolio
+Carry Portfolio
 </td>
 <td style="text-align:right;">
 1.066090
@@ -1592,7 +1594,7 @@ portfolio
 0.0144002
 </td>
 <td style="text-align:left;">
-portfolio
+Carry Portfolio
 </td>
 <td style="text-align:right;">
 1.081442
@@ -1606,7 +1608,7 @@ portfolio
 0.0244335
 </td>
 <td style="text-align:left;">
-portfolio
+Carry Portfolio
 </td>
 <td style="text-align:right;">
 1.107866
@@ -1616,6 +1618,8 @@ portfolio
 </table>
 <p>We use the <code>basicStats</code> function to compute summary statistics for the portfolio.</p>
 <pre class="r watch-out"><code>Descriptive_statistics &lt;- basicStats(portfolio.returns$return)
+port.stats &lt;- bind_rows(tapply(comparison$return, comparison$id, basicStats))
+rownames(port.stats) &lt;- rownames(Descriptive_statistics)
 print(Descriptive_statistics)</code></pre>
 <table class = 'table-stat'>
 <thead>
@@ -1623,7 +1627,16 @@ print(Descriptive_statistics)</code></pre>
 <th style="text-align:left;">
 </th>
 <th style="text-align:right;">
-X..portfolio.returns.return
+BCOM
+</th>
+<th style="text-align:right;">
+BCOMEN
+</th>
+<th style="text-align:right;">
+Carry Portfolio
+</th>
+<th style="text-align:right;">
+SPX
 </th>
 </tr>
 </thead>
@@ -1631,6 +1644,15 @@ X..portfolio.returns.return
 <tr>
 <td style="text-align:left;">
 nobs
+</td>
+<td style="text-align:right;">
+254.000000
+</td>
+<td style="text-align:right;">
+254.000000
+</td>
+<td style="text-align:right;">
+254.000000
 </td>
 <td style="text-align:right;">
 254.000000
@@ -1643,13 +1665,31 @@ NAs
 <td style="text-align:right;">
 0.000000
 </td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Minimum
 </td>
 <td style="text-align:right;">
+-0.240037
+</td>
+<td style="text-align:right;">
+-0.297197
+</td>
+<td style="text-align:right;">
 0.000304
+</td>
+<td style="text-align:right;">
+-0.185636
 </td>
 </tr>
 <tr>
@@ -1657,7 +1697,16 @@ Minimum
 Maximum
 </td>
 <td style="text-align:right;">
+0.122113
+</td>
+<td style="text-align:right;">
+0.284577
+</td>
+<td style="text-align:right;">
 0.314261
+</td>
+<td style="text-align:right;">
+0.102307
 </td>
 </tr>
 <tr>
@@ -1666,7 +1715,16 @@ Maximum
 <li>Quartile
 </td>
 <td style="text-align:right;">
+-0.025885
+</td>
+<td style="text-align:right;">
+-0.054593
+</td>
+<td style="text-align:right;">
 0.018553
+</td>
+<td style="text-align:right;">
+-0.017958
 </td>
 </tr>
 <tr>
@@ -1675,7 +1733,16 @@ Maximum
 <li>Quartile
 </td>
 <td style="text-align:right;">
+0.028292
+</td>
+<td style="text-align:right;">
+0.048784
+</td>
+<td style="text-align:right;">
 0.057036
+</td>
+<td style="text-align:right;">
+0.030592
 </td>
 </tr>
 <tr>
@@ -1683,7 +1750,16 @@ Maximum
 Mean
 </td>
 <td style="text-align:right;">
+0.000002
+</td>
+<td style="text-align:right;">
+-0.001981
+</td>
+<td style="text-align:right;">
 0.043305
+</td>
+<td style="text-align:right;">
+0.004020
 </td>
 </tr>
 <tr>
@@ -1691,7 +1767,16 @@ Mean
 Median
 </td>
 <td style="text-align:right;">
+0.002387
+</td>
+<td style="text-align:right;">
+0.000649
+</td>
+<td style="text-align:right;">
 0.030805
+</td>
+<td style="text-align:right;">
+0.009857
 </td>
 </tr>
 <tr>
@@ -1699,7 +1784,16 @@ Median
 Sum
 </td>
 <td style="text-align:right;">
+0.000526
+</td>
+<td style="text-align:right;">
+-0.503073
+</td>
+<td style="text-align:right;">
 10.999416
+</td>
+<td style="text-align:right;">
+1.021179
 </td>
 </tr>
 <tr>
@@ -1707,7 +1801,16 @@ Sum
 SE Mean
 </td>
 <td style="text-align:right;">
+0.002869
+</td>
+<td style="text-align:right;">
+0.005392
+</td>
+<td style="text-align:right;">
 0.002598
+</td>
+<td style="text-align:right;">
+0.002639
 </td>
 </tr>
 <tr>
@@ -1715,7 +1818,16 @@ SE Mean
 LCL Mean
 </td>
 <td style="text-align:right;">
+-0.005649
+</td>
+<td style="text-align:right;">
+-0.012599
+</td>
+<td style="text-align:right;">
 0.038189
+</td>
+<td style="text-align:right;">
+-0.001177
 </td>
 </tr>
 <tr>
@@ -1723,7 +1835,16 @@ LCL Mean
 UCL Mean
 </td>
 <td style="text-align:right;">
+0.005653
+</td>
+<td style="text-align:right;">
+0.008638
+</td>
+<td style="text-align:right;">
 0.048421
+</td>
+<td style="text-align:right;">
+0.009218
 </td>
 </tr>
 <tr>
@@ -1731,7 +1852,16 @@ UCL Mean
 Variance
 </td>
 <td style="text-align:right;">
+0.002091
+</td>
+<td style="text-align:right;">
+0.007385
+</td>
+<td style="text-align:right;">
 0.001714
+</td>
+<td style="text-align:right;">
+0.001769
 </td>
 </tr>
 <tr>
@@ -1739,7 +1869,16 @@ Variance
 Stdev
 </td>
 <td style="text-align:right;">
+0.045732
+</td>
+<td style="text-align:right;">
+0.085934
+</td>
+<td style="text-align:right;">
 0.041404
+</td>
+<td style="text-align:right;">
+0.042061
 </td>
 </tr>
 <tr>
@@ -1747,7 +1886,16 @@ Stdev
 Skewness
 </td>
 <td style="text-align:right;">
+-0.738438
+</td>
+<td style="text-align:right;">
+-0.146512
+</td>
+<td style="text-align:right;">
 2.811055
+</td>
+<td style="text-align:right;">
+-0.766771
 </td>
 </tr>
 <tr>
@@ -1755,7 +1903,16 @@ Skewness
 Kurtosis
 </td>
 <td style="text-align:right;">
+2.870033
+</td>
+<td style="text-align:right;">
+0.771834
+</td>
+<td style="text-align:right;">
 10.885176
+</td>
+<td style="text-align:right;">
+1.459884
 </td>
 </tr>
 </tbody>
@@ -1788,7 +1945,7 @@ BCOM
 </tr>
 <tr>
 <td style="text-align:left;">
-energy
+BCOMEN
 </td>
 <td style="text-align:right;">
 5.910663
@@ -1796,7 +1953,7 @@ energy
 </tr>
 <tr>
 <td style="text-align:left;">
-portfolio
+Carry Portfolio
 </td>
 <td style="text-align:right;">
 39406.334375
@@ -1884,8 +2041,6 @@ print(comp)</code></pre>
   scale_fill_manual(values = c(&quot;#f1c40f&quot;, &quot;#2ecc71&quot;, &quot;#9b59b6&quot;, &quot;#e74c3c&quot;))+
   theme_update(plot.title = element_text(hjust = 0.5))+
   theme(
-    legend.position = &quot;none&quot;,
-    legend.background = element_rect(fill = &quot;#dbedf9&quot;),
     plot.background = element_rect(&quot;#ffffff&quot;),
     panel.background = element_rect(fill = &quot;#dbedf9&quot;,
                                     colour = &quot;#dbedf9&quot;,
@@ -1931,19 +2086,32 @@ port &lt;- xts(port[,-1], order.by = ymd(port$Dates))</code></pre>
 <p>The <code>hc_title()</code> function adds a title to the chart. The <code>hc_add_series()</code> adds the data that needs to be plotted. This function is similar to the <code>geom_</code> functions of <code>ggplot()</code> The <code>hc_add_theme()</code> function lets you choose a theme to be applied on your chart. The highcharter function comes with loads of beautiful ready made themes, there is even a ggplot theme! We have gone for the Financial Times theme here, which seems appropriate given the setting.</p>
 <p>The navigator is a small series below the main series, displaying a view of the entire data set. It provides tools to zoom in and out on parts of the data as well as panning across the dataset. We’ve turned it off by setting enabled to FALSE. A scrollbar is not necessary here so we disable that as well.</p>
 <p>The <code>hc_exporting()</code> controls the option to export the chart. We set this to true so that we can save our graph. Saving the graph can be done by clicking on the three horizontal bars in the top right corner and then clicking the desired download option.</p>
-<p>Lastly, the <code>hc</code></p>
 <pre class="r watch-out"><code>highchart(type = &quot;stock&quot;) %&gt;%
-  hc_title(text = &quot;Monthly Log Returns&quot;) %&gt;%
-  hc_add_series(port[, 1], name = &quot;BCOM&quot;) %&gt;%
-  hc_add_series(port[, 2], name = &quot;SPX&quot;) %&gt;%
-  hc_add_series(port[, 3], name = &quot;energy&quot;) %&gt;%
-  hc_add_series(port[, 4], name = &quot;portfolio&quot;) %&gt;%
+  hc_title(text = &quot;Portfolio Returns vs Benchmark Returns&quot;) %&gt;%
+  hc_add_series(port[, 1], name = colnames(port)[1]) %&gt;%
+  hc_add_series(port[, 2], name = colnames(port)[2]) %&gt;%
+  hc_add_series(port[, 3], name = colnames(port)[3]) %&gt;%
+  hc_add_series(port[, 4], name = colnames(port)[4]) %&gt;%
   hc_add_theme(hc_theme_ft()) %&gt;%
   hc_navigator(enabled = FALSE) %&gt;%
   hc_scrollbar(enabled = FALSE) %&gt;%
   hc_exporting(enabled = TRUE, scale = 4) %&gt;%
-  hc_legend(enabled = TRUE)</code></pre>
+  hc_legend(enabled = TRUE) %&gt;%
+  hc_colors(c(&quot;blue&quot;, &quot;orange&quot;, &quot;green&quot;, &quot;deeppink&quot;))</code></pre>
 <iframe src="highchart.html" width="672" height="500px">
+</iframe>
+<pre class="r watch-out"><code>port.cum &lt;- cumprod(1+port)
+
+highchart(type = &quot;stock&quot;) %&gt;%
+  hc_title(text = &quot;Portfolio Returns vs Benchmark Returns&quot;) %&gt;%
+  hc_add_series(port.cum[, &quot;Carry Portfolio&quot;], name = &quot;Carry Portfolio&quot;) %&gt;%
+  hc_add_theme(hc_theme_ft()) %&gt;%
+  hc_navigator(enabled = FALSE) %&gt;%
+  hc_scrollbar(enabled = FALSE) %&gt;%
+  hc_exporting(enabled = TRUE, scale = 4) %&gt;%
+  hc_legend(enabled = TRUE) %&gt;%
+  hc_colors(c(&quot;#2ecc71&quot;))</code></pre>
+<iframe src="cumulative.html" width="672" height="500px">
 </iframe>
 <p></br></p>
 <p><strong>Correlation Matrix</strong></p>
@@ -1965,6 +2133,288 @@ hchart() %&gt;%
 <iframe src="correlations.html" width="672" height="500px">
 </iframe>
 <p>We can see that our carry returns are almost uncorrelated with the indices.</p>
+</div>
+<div id="regression" class="section level1">
+<h1>Regression</h1>
+<p>The last test to perform is a regression. We regress the carry portfolio returns on the index returns.</p>
+<pre class="r watch-out"><code>temp &lt;- data.table::dcast(data.table::setDT(comparison), Dates ~ id, value.var = &quot;return&quot;)
+
+results &lt;- contracts %&gt;%
+  left_join(temp, by=c(&quot;Dates&quot; = &quot;Dates&quot;)) %&gt;%
+  select(Dates, id, Return, `Carry Portfolio`) %&gt;% 
+  group_by(id) %&gt;%
+  do(fitCarry = tidy(lm(Return ~ `Carry Portfolio`, data = .))) %&gt;% 
+  unnest(fitCarry) %&gt;%
+  group_by(id) %&gt;%
+  mutate(term = c(&quot;alpha&quot;, &quot;beta&quot;))
+
+results</code></pre>
+<table class = 'table-extra'>
+<thead>
+<tr>
+<th style="text-align:left;">
+id
+</th>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+CL
+</td>
+<td style="text-align:left;">
+alpha
+</td>
+<td style="text-align:right;">
+-0.0004268
+</td>
+<td style="text-align:right;">
+0.0005900
+</td>
+<td style="text-align:right;">
+-0.7233080
+</td>
+<td style="text-align:right;">
+0.4701615
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CL
+</td>
+<td style="text-align:left;">
+beta
+</td>
+<td style="text-align:right;">
+-0.0084179
+</td>
+<td style="text-align:right;">
+0.0098577
+</td>
+<td style="text-align:right;">
+-0.8539384
+</td>
+<td style="text-align:right;">
+0.3939501
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CO
+</td>
+<td style="text-align:left;">
+alpha
+</td>
+<td style="text-align:right;">
+0.0007665
+</td>
+<td style="text-align:right;">
+0.0004784
+</td>
+<td style="text-align:right;">
+1.6023068
+</td>
+<td style="text-align:right;">
+0.1103405
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CO
+</td>
+<td style="text-align:left;">
+beta
+</td>
+<td style="text-align:right;">
+0.0008336
+</td>
+<td style="text-align:right;">
+0.0079920
+</td>
+<td style="text-align:right;">
+0.1043017
+</td>
+<td style="text-align:right;">
+0.9170129
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HO
+</td>
+<td style="text-align:left;">
+alpha
+</td>
+<td style="text-align:right;">
+-0.0039090
+</td>
+<td style="text-align:right;">
+0.0013360
+</td>
+<td style="text-align:right;">
+-2.9258932
+</td>
+<td style="text-align:right;">
+0.0037481
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HO
+</td>
+<td style="text-align:left;">
+beta
+</td>
+<td style="text-align:right;">
+0.1255677
+</td>
+<td style="text-align:right;">
+0.0223199
+</td>
+<td style="text-align:right;">
+5.6258307
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NG
+</td>
+<td style="text-align:left;">
+alpha
+</td>
+<td style="text-align:right;">
+0.0067214
+</td>
+<td style="text-align:right;">
+0.0023119
+</td>
+<td style="text-align:right;">
+2.9072711
+</td>
+<td style="text-align:right;">
+0.0039708
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NG
+</td>
+<td style="text-align:left;">
+beta
+</td>
+<td style="text-align:right;">
+-0.4864811
+</td>
+<td style="text-align:right;">
+0.0386243
+</td>
+<td style="text-align:right;">
+-12.5952142
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+QS
+</td>
+<td style="text-align:left;">
+alpha
+</td>
+<td style="text-align:right;">
+0.0000981
+</td>
+<td style="text-align:right;">
+0.0004274
+</td>
+<td style="text-align:right;">
+0.2294766
+</td>
+<td style="text-align:right;">
+0.8186847
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+QS
+</td>
+<td style="text-align:left;">
+beta
+</td>
+<td style="text-align:right;">
+0.0167085
+</td>
+<td style="text-align:right;">
+0.0071412
+</td>
+<td style="text-align:right;">
+2.3397304
+</td>
+<td style="text-align:right;">
+0.0200790
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+XB
+</td>
+<td style="text-align:left;">
+alpha
+</td>
+<td style="text-align:right;">
+-0.0023084
+</td>
+<td style="text-align:right;">
+0.0033307
+</td>
+<td style="text-align:right;">
+-0.6930574
+</td>
+<td style="text-align:right;">
+0.4892305
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+XB
+</td>
+<td style="text-align:left;">
+beta
+</td>
+<td style="text-align:right;">
+0.1989486
+</td>
+<td style="text-align:right;">
+0.0518392
+</td>
+<td style="text-align:right;">
+3.8378028
+</td>
+<td style="text-align:right;">
+0.0001755
+</td>
+</tr>
+</tbody>
+</table>
 <p>This concludes our research tests. We hope you found it informative and interesting.</p>
 </div>
 
