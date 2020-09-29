@@ -393,13 +393,13 @@ $(document).ready(function() {
 }
 
 #regTable tr:last-child td {
-  border-bottom: 3px solid #373536;
+  border-bottom: 3px solid #072b3f;
   border-collapse: separate;
   padding-bottom: 1px;
 }
 
 #regTable th {
-  background-color: #373536;
+  background-color: #072b3f;
   color: white;
   border-top: 0 solid #ddd;
   border-bottom: 0 solid #ddd;
@@ -462,10 +462,10 @@ border-right: 0 #ddd;
 }
 
 #tableKey tr:last-child td {
-border-bottom: 3px solid #373536;
+border-bottom: 3px solid #072b3f;
 border-collapse: separate;
 padding-bottom: 1px;
-border-top: 3px solid #373536;
+border-top: 3px solid #072b3f;
 }
 
 #tableKey th {
@@ -2210,7 +2210,7 @@ print(gghist)</code></pre>
 <p><img src="index_files/figure-html/histh-1.png" width="4032" /></p>
 <p>We also use violin plots to show the distribution of the returns. These are like boxplots but they differ slightly in that they also show the kernel probability density.</p>
 <p>Violin plots can also be plotted with the median of the data and a box indicating the interquartile range, just like standard box plots. However, we have opted to plot the violin plots with the mean as a pointed circle and the standard deviation around the mean as a straight line. To do this, we have used the <code>stat_summary()</code> function (which requires the Hmisc package).</p>
-<pre class="r"><code>ggplot(comparison, aes(x=id, y=return, fill=id)) + 
+<pre class="r watch-out"><code>ggplot(comparison, aes(x=id, y=return, fill=id)) + 
   geom_violin(trim=FALSE)+
   stat_summary(fun.data=mean_sdl, geom=&quot;pointrange&quot;, color=&quot;red&quot;)+
   scale_fill_manual(values=c(&quot;#999999&quot;, &quot;#E69F00&quot;, &quot;#56B4E9&quot;, &quot;#FFFFFF&quot;))+
