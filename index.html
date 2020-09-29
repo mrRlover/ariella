@@ -350,6 +350,157 @@ $(window).scroll(function(){
 });
 })
 </script>
+<script type="text/javascript">
+/* This code highlights significant figures in the table */
+$(document).ready(function() {
+      $('#regTable tr > td:last-child').each(function(index) {
+          var levels = [
+            ['oneLevel', 0.01],
+            ['fiveLevel', 0.05],
+            ['tenLevel', 0.1]
+          ];
+          var p_value = $(this).text();
+          if (p_value <= levels[0][1]) {
+            $(this).addClass(levels[0][0]);
+          } else if (p_value > levels[0][1] && p_value <= levels[1][1]) {
+            $(this).addClass(levels[1][0]);
+          } else if (p_value > levels[1][1] && p_value < levels[2][1]) {
+              $(this).addClass(levels[2][0]);
+            }
+
+          });
+});
+</script>
+<style type="text/css">
+#regTable td:not(:first-child) {
+  text-align: center;
+  text-align-last: center;
+}
+
+#regTable tr:first-child td {
+  border-top: 0 #ddd;
+}
+
+#regTable td:first-child {
+  border-left: 0 #ddd;
+}
+
+#regTable td:last-child {
+  border-right: 0 #ddd;
+}
+
+#regTable tr:last-child td {
+  border-bottom: 3px solid #373536;
+  border-collapse: separate;
+  padding-bottom: 1px;
+}
+
+#regTable th {
+  background-color: #373536;
+  color: white;
+  border-top: 0 solid #ddd;
+  border-bottom: 0 solid #ddd;
+  border-left: 0 solid #ddd;
+  border-right: 0 solid #ddd;
+  text-align: center;
+  text-align-last: center;
+}
+
+#regTable td {
+  width: 920px;
+  max-width: 920px;
+  white-space: pre-wrap;        /* css */
+  white-space: -moz-pre-wrap;   /* Mozilla */
+  white-space: -pre-wrap;       /* Chrome*/
+  white-space: -o-pre-wrap;     /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+#regTable th {
+  border-bottom: 0 #ddd;
+}
+
+#regTable { 
+    border-collapse: collapse; 
+}
+
+.oneLevel {
+    background-color: #1995dc;
+}
+
+.fiveLevel {
+    background-color: #7bc5f0;
+}
+
+.tenLevel {
+    background-color: #c1e4f8;
+}
+</style>
+<style type="text/css">
+#tableKey {
+  width: 100%;
+}
+
+#tableKey td {
+text-align: center;
+text-align-last: center;
+}
+
+#tableKey tr:first-child td {
+border-top: 0 #ddd;
+}
+
+#tableKey td:first-child {
+border-left: 0 #ddd;
+}
+
+#tableKey td:last-child {
+border-right: 0 #ddd;
+}
+
+#tableKey tr:last-child td {
+border-bottom: 3px solid #373536;
+border-collapse: separate;
+padding-bottom: 1px;
+border-top: 3px solid #373536;
+}
+
+#tableKey th {
+background-color: #fff;
+  color: #000;
+  text-indent: 0.3em;
+border-top: 0 solid #ddd;
+border-bottom: 0 solid #ddd;
+border-left: 0 solid #ddd;
+border-right: 0 solid #ddd;
+}
+
+#tableKey th {
+border-bottom: 0 #ddd;
+}
+
+#tableKey { 
+border-collapse: collapse; 
+}
+
+#tableKey tr td:first-child {
+  background-color: #1995dc;
+  color: #000;
+  font-weight: bold;
+}
+
+#tableKey tr td:nth-child(2) {
+  background-color: #7bc5f0;
+  color: #000;
+  font-weight: bold;
+}
+
+#tableKey td:last-child {
+  background-color: #c1e4f8;
+  color: #000;
+  font-weight: bold;
+}
+</style>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>Here we are going to cover the basics using R to perform statistical analysis for a research paper. The code reported here is what we used to obtain the results in our final research report.</p>
@@ -2149,7 +2300,7 @@ results &lt;- contracts %&gt;%
   mutate(term = c(&quot;alpha&quot;, &quot;beta&quot;))
 
 results</code></pre>
-<table class = 'table-extra'>
+<table id = 'regTable'>
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -2415,6 +2566,34 @@ beta
 </tr>
 </tbody>
 </table>
+<p></br></p>
+<table id = tableKey>
+<thead>
+<tr>
+<th style="text-align:left;">
+Key:
+</th>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1% significant level
+</td>
+<td style="text-align:left;">
+5% significant level
+</td>
+<td style="text-align:left;">
+10% significant level
+</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
 <p>This concludes our research tests. We hope you found it informative and interesting.</p>
 </div>
 
